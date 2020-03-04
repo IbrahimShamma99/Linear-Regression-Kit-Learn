@@ -38,8 +38,8 @@ class LinearReg():
         params = np.zeros((n_features,1))
         learning_rate = 0.01
         initial_cost = self.__compute_cost(X, Y, params)
-        (J_history, optimal_params) = self.__gradient_descent(X,Y, params, learning_rate)
+        (cost_history, optimal_params) = self.__gradient_descent(X,Y, params, learning_rate)
         self.initial_cost = initial_cost
-        self.J_history = J_history
+        self.cost_history = cost_history
         self.optimal_params = optimal_params
         #self.plot(initial_cost , optimal_params,J_history)

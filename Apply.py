@@ -8,4 +8,4 @@ Y = dataset.target[:,np.newaxis]
 
 linreg = LinearReg()
 linreg.run(X,Y)
-linreg.plotError()
+print(linreg.)
