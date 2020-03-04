@@ -1,5 +1,5 @@
 from LinearRegression.LinearReg import LinearReg
-from sklearn.datasets import load_boston
+from sklearn.datasets import load_boston , load_breast_cancer
 from LogisticRegression.LogisticReg import LogisticReg
 import numpy as np
 
@@ -9,8 +9,8 @@ Y = dataset.target[:,np.newaxis]
 
 linreg = LinearReg()
 linreg.run(X,Y)
-linreg.plotError()
+linreg.plot()
 
-LogReg = LogisticReg()
-LogReg.run(X , Y)
-LogReg.plotError()
+
+# LogReg = LogisticReg()
+# LogReg.run(X,Y)
