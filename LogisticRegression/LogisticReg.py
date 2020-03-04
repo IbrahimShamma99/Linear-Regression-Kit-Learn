@@ -1,10 +1,17 @@
 import numpy as np
-import matplotlib.pyplot as plt
 from sklearn.datasets import make_classification
-import seaborn as sns
+import sys
+import os
+sys.path.append(os.getcwd())
+from Plots.ErrorPlot import ErrPlots
 
 
 class LogisticReg():
+    '''
+    LogReg = LogisticReg()
+    LogReg.run(X , y)
+    LogReg.plotError()
+    '''
     def __init__(self):
         pass
     
@@ -30,7 +37,22 @@ class LogisticReg():
 
     def predict(self , X, params):
         return np.round(self.sigmoid(X @ params))
-
+    
+    def plotError(self):
+        ErrPlots.plot(self)
+        # plt.figure()
+        # sns.set_style('white')
+        # plt.plot(range(len(self.cost_history)), self.cost_history, 'r')
+        # plt.title("Convergence Graph of Cost Function")
+        # plt.xlabel("Number of Iterations")
+        # plt.ylabel("Cost")
+        # plt.show()
+    def score(self):
+        y_pred = predict(X, params_optimal)
+        score = float(sum(y_pred == y))/ float(len(y))
+        print(score)
+        return score
+    
     def run(self, X , y):
         m = len(y)
         X = np.hstack((np.ones((m,1)),X))
@@ -40,29 +62,7 @@ class LogisticReg():
         learning_rate = 0.03
         initial_cost = self.compute_cost(X, y, params)
         print("Initial Cost is: {} \n".format(initial_cost))
-        (cost_history, params_optimal) = self.gradient_descent(X, y, params, learning_rate, iterations)
-
-        print("Optimal Parameters are: \n", params_optimal, "\n")
-        plt.figure()
-        sns.set_style('white')
-        plt.plot(range(len(cost_history)), cost_history, 'r')
-        plt.title("Convergence Graph of Cost Function")
-        plt.xlabel("Number of Iterations")
-        plt.ylabel("Cost")
-        plt.show()
-
-
-
-X, y = make_classification(n_samples=500, n_features=2, n_redundant=0, n_informative=1,
-                            n_clusters_per_class=1, random_state=14)
-y = y[:,np.newaxis]
-sns.set_style('white')
-sns.scatterplot(X[:,0],X[:,1],hue=y.reshape(-1));
-
-
-LogReg = LogisticReg()
-LogReg.run(X , y)
-
-y_pred = predict(X, params_optimal)
-score = float(sum(y_pred == y))/ float(len(y))
-print(score)
+        (cost_history, optimal_params) = self.gradient_descent(X, y, params, learning_rate, iterations)
+        self.cost_history = cost_history
+        self.optimal_params = optimal_params
+        self.initial_cost = initial_cost
