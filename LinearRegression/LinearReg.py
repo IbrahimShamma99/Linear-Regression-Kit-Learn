@@ -1,30 +1,41 @@
 import numpy as np
-from sklearn.datasets import load_boston
 import matplotlib.pyplot as plt
-
-dataset = load_boston()
-X = dataset.data
-Y = dataset.target[:,np.newaxis]
-
-n_iters = 1500
 
 
 class LinearReg():
-    def compute_cost(self,X, y, params):
+    
+    def __init__(self,iters=1500):
+        #TODO To let the model switch between different linear algorithms
+        self.__iters = iters
+        # self.initial_cost=0
+        # self.optimal_params = 0
+        # self.J_history = []
+        pass 
+              
+    def __compute_cost(self,X, y, params):
         n_samples = len(y)
         h = X @ params
         return (1/(2*n_samples))*np.sum((h-y)**2)
 
-    def gradient_descent(self,X, y, params, learning_rate, n_iters):
+    def __gradient_descent(self,X, y, params, learning_rate):
         n_samples = len(y)
-        J_history = np.zeros((n_iters,1))
+        J_history = np.zeros((self.__iters,1))
 
-        for i in range(n_iters):
+        for i in range(self.__iters):
             params = params - (learning_rate/n_samples) * X.T @ (X @ params - y) 
-            J_history[i] = self.compute_cost(X, y, params)
+            J_history[i] = self.__compute_cost(X, y, params)
 
         return (J_history, params)
-
+    
+    def plotError(self):
+        print("Initial cost is: ", self.initial_cost, "\n")
+        print("Optimal parameters are: \n", self.optimal_params, "\n")
+        print("Final cost is: ", self.J_history[-1])
+        plt.plot(range(len(self.J_history)), self.J_history, 'r')
+        plt.title("Convergence Graph of Cost Function")
+        plt.xlabel("Number of Iterations")
+        plt.ylabel("Cost")
+        plt.show()
 
     def run(self, X , Y):
         n_samples = len(Y)
@@ -35,17 +46,9 @@ class LinearReg():
         n_features = np.size(X,1)
         params = np.zeros((n_features,1))
         learning_rate = 0.01
-        initial_cost = self.compute_cost(X, Y, params)
-        (J_history, optimal_params) = self.gradient_descent(X,Y, params, learning_rate, n_iters)
-        print("Initial cost is: ", initial_cost, "\n")
-        print("Optimal parameters are: \n", optimal_params, "\n")
-        print("Final cost is: ", J_history[-1])
-        plt.plot(range(len(J_history)), J_history, 'r')
-        plt.title("Convergence Graph of Cost Function")
-        plt.xlabel("Number of Iterations")
-        plt.ylabel("Cost")
-        plt.show()
-    
-    
-lin = LinearReg()
-lin.run(X,Y)
+        initial_cost = self.__compute_cost(X, Y, params)
+        (J_history, optimal_params) = self.__gradient_descent(X,Y, params, learning_rate)
+        self.initial_cost = initial_cost
+        self.J_history = J_history
+        self.optimal_params = optimal_params
+        #self.plot(initial_cost , optimal_params,J_history)
