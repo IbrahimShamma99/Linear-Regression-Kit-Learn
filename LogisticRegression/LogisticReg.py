@@ -6,7 +6,7 @@ sys.path.append(os.getcwd())
 from Plots.ErrorPlot import ErrPlots
 
 
-class LogisticReg():
+class LogisticReg(ErrPlots):
     '''
     LogReg = LogisticReg()
     LogReg.run(X , y)
@@ -38,15 +38,6 @@ class LogisticReg():
     def predict(self , X, params):
         return np.round(self.sigmoid(X @ params))
     
-    def plotError(self):
-        ErrPlots.plot(self)
-        # plt.figure()
-        # sns.set_style('white')
-        # plt.plot(range(len(self.cost_history)), self.cost_history, 'r')
-        # plt.title("Convergence Graph of Cost Function")
-        # plt.xlabel("Number of Iterations")
-        # plt.ylabel("Cost")
-        # plt.show()
     def score(self):
         y_pred = predict(X, params_optimal)
         score = float(sum(y_pred == y))/ float(len(y))

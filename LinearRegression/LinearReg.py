@@ -3,12 +3,12 @@ from Plots.ErrorPlot import ErrPlots
 
 class LinearReg(ErrPlots):
     
-    def __init__(self,iters=1500):
+    def __init__(self,iters=150):
         #TODO To let the model switch between different linear algorithms
         self.__iters = iters
-        self.initial_cost=0
-        self.optimal_params = 0
-        self.cost_history = []
+        # self.initial_cost=0
+        # self.optimal_params = 0
+        # self.cost_history = []
         pass 
               
     def __compute_cost(self,X, y, params):
@@ -29,6 +29,7 @@ class LinearReg(ErrPlots):
     #      ErrPlots.plot(self)
     
     def run(self, X , Y):
+        learning_rate = 0.01
         n_samples = len(Y)
         mu = np.mean(X, 0)
         sigma = np.std(X, 0)
@@ -36,13 +37,9 @@ class LinearReg(ErrPlots):
         X = np.hstack((np.ones((n_samples,1)),X))
         n_features = np.size(X,1)
         params = np.zeros((n_features,1))
-        learning_rate = 0.01
-        initial_cost = self.__compute_cost(X, Y, params)
-        (cost_history, optimal_params) = self.__gradient_descent(X,Y, params, learning_rate)
-        self.initial_cost = initial_cost
-        self.cost_history = cost_history
-        self.optimal_params = optimal_params
-        
+        self.initial_cost = self.__compute_cost(X, Y, params)
+        (self.cost_history, self.optimal_params) = self.__gradient_descent(X,Y, params, learning_rate)
+                
     def getInitialCost(self):
         return self.initial_cost
     
