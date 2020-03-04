@@ -1,9 +1,4 @@
 import numpy as np
-import matplotlib.pyplot as plt
-import os
-import sys
-sys.path.append(os.getcwd()) 
-
 from Plots.ErrorPlot import ErrPlots
 
 class LinearReg():
@@ -28,7 +23,6 @@ class LinearReg():
         for i in range(self.__iters):
             params = params - (learning_rate/n_samples) * X.T @ (X @ params - y) 
             J_history[i] = self.__compute_cost(X, y, params)
-
         return (J_history, params)
     
     def plotError(self):
