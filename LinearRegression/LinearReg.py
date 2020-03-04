@@ -4,7 +4,7 @@ import os
 import sys
 sys.path.append(os.getcwd()) 
 
-from Plots.ErrorPlot import Plots  as plot
+from Plots.ErrorPlot import ErrPlots
 
 class LinearReg():
     
@@ -32,7 +32,7 @@ class LinearReg():
         return (J_history, params)
     
     def plotError(self):
-         plot.plotError(self)
+         ErrPlots.plot(self)
     
     def run(self, X , Y):
         n_samples = len(Y)

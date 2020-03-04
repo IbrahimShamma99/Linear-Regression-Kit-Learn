@@ -1,10 +1,10 @@
 import matplotlib.pyplot as plt
 
-class Plots():
+class ErrPlots():
     def __init__(self):
         pass
     
-    def plotError(self):
+    def plot(self):
         print("Initial cost is: ", self.initial_cost, "\n")
         print("Optimal parameters are: \n", self.optimal_params, "\n")
         print("Final cost is: ", self.J_history[-1])
