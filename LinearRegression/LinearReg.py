@@ -14,12 +14,12 @@ class LinearReg(Plots):
 
     def __gradient_descent(self,X, y, params, learning_rate):
         n_samples = len(y)
-        J_history = np.zeros((self.__iters,1))
+        cost_history = np.zeros((self.__iters,1))
 
         for i in range(self.__iters):
             params = params - (learning_rate/n_samples) * X.T @ (X @ params - y) 
-            J_history[i] = self.__compute_cost(X, y, params)
-        return (J_history, params)
+            cost_history[i] = self.__compute_cost(X, y, params)
+        return (cost_history, params)
     
     def __Implementation(self, X , Y):
         self.n_samples = len(Y)
