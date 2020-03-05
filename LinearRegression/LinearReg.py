@@ -1,12 +1,13 @@
 import numpy as np
 from Plots.main import Plots
+from Cleaner.cleaner import Cleaner
 
-class LinearReg(Plots):
+class LinearReg(Plots,Cleaner):
     
     #NOTE Initial state
     def __init__(self,iters=300):
         self.__iters = iters
-        self.n_samples=0
+        self.n_samples = 0 
         pass 
     
     def __compute_cost(self,X, y, params):
@@ -35,11 +36,11 @@ class LinearReg(Plots):
         self.initial_cost = self.__compute_cost(X, Y, params)
         (self.cost_history, self.optimal_params) = self.__gradient_descent(X,Y, params, learning_rate)
     
-    def run(self, X , Y):
+    def run(self, X , Y, train_ratio):
         self.X = X 
         self.Y = Y
-        self.Split()
-        self.__Implementation(X, Y)
+        X_train ,Y_train , X_test , Y_test  = self.Split(X , Y , train_ratio)
+        self.__Implementation(X_train, Y_train)
     
     def getInitialCost(self):
         try:
@@ -57,20 +58,3 @@ class LinearReg(Plots):
             return self.cost_history
         except TypeError:
             return 0
-    
-    def splitProperty(self,prop,ratio):
-        #FIXME 
-        if (self.n_samples != 0):
-            self.n_samples = len(prop)
-        division = np.round(self.n_samples * ratio)     
-        indices = np.random.permutation(prop.shape[0])
-        training_idx , test_idx = indices[:division], indices[division:]
-        prop_training, prop_test = prop[training_idx,:], prop[test_idx,:]
-        return prop_training , prop_test
-        
-    def Split(self,X , Y , train_ratio=0.7):
-        #Train 
-        X_train , X_test = self.splitProperty(self,X,train_ratio)
-        #Test
-        Y_train , Y_test = self.splitProperty(self,Y,1-train_ratio)        
-        return X_train , Y_train , X_test , Y_test
