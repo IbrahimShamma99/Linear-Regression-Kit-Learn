@@ -6,12 +6,6 @@ class LinearReg(Plots):
     def __init__(self,iters=300):
         self.__iters = iters
         pass 
-
-    def _CheckSplit(self):
-        if (self.__split):
-            pass
-        else:
-            self.Split()        
     
     def __compute_cost(self,X, y, params):
         n_samples = len(y)
@@ -40,9 +34,10 @@ class LinearReg(Plots):
         self.initial_cost = self.__compute_cost(X, Y, params)
         (self.cost_history, self.optimal_params) = self.__gradient_descent(X,Y, params, learning_rate)
     
-    def run(self, X , Y, splitted=True):
-        self.__split = splitted
-        self._CheckSplit()
+    def run(self, X , Y):
+        self.X = X 
+        self.Y = Y
+        self.Split()
         self.__Implementation(X, Y)
     
     def getInitialCost(self):
@@ -54,9 +49,11 @@ class LinearReg(Plots):
     def getCostHistory(self):
         return self.cost_history
     
-    def Split(self):
-        X = np.random.rand(100, 5)
-        indices = np.random.permutation(X.shape[0])
-        training_idx, test_idx = indices[:80], indices[80:]
-        training, test = X[training_idx,:], X[test_idx,:]
+    def splitProperty(self,prop):
+        #FIXME 
+        indices = np.random.permutation(prop.shape[0])
+        training_idx , test_idx = indices[:80], indices[80:]
+        X_training, X_test = prop[training_idx,:], prop[test_idx,:]
         
+    def Split(self):
+        pass
