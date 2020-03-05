@@ -25,9 +25,6 @@ class LinearReg(ErrPlots):
             J_history[i] = self.__compute_cost(X, y, params)
         return (J_history, params)
     
-    # def plotError(self):
-    #      ErrPlots.plot(self)
-    
     def run(self, X , Y):
         learning_rate = 0.01
         n_samples = len(Y)

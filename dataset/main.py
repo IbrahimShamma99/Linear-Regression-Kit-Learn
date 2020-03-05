@@ -13,9 +13,8 @@ def read_csv():
         data_array = np.asarray(data)
         
     return data_array
-        
-def load_breast_cancer():
-    data = read_csv()
+
+def preprocess(data):
     X = []
     Y = []
     for i in range(1,len(data)):
@@ -24,7 +23,9 @@ def load_breast_cancer():
     X = np.array(X)
     Y = np.array(Y)
     X = X.astype(np.float)
-    Y = Y.astype(np.int)  
-    return X,Y
-
-
+    Y = Y.astype(np.int)
+    return (X , Y) 
+        
+def load_breast_cancer():
+    data = read_csv()
+    return preprocess(data)
