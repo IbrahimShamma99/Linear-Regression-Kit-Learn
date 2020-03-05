@@ -3,9 +3,8 @@ from Plots.ErrorPlot import Plots
 
 class LinearReg(Plots):
     
-    def __init__(self,iters=150, splitted=True):
+    def __init__(self,iters=300):
         self.__iters = iters
-        self.__split = splitted
         pass 
 
     def _CheckSplit(self):
@@ -41,18 +40,10 @@ class LinearReg(Plots):
         self.initial_cost = self.__compute_cost(X, Y, params)
         (self.cost_history, self.optimal_params) = self.__gradient_descent(X,Y, params, learning_rate)
     
-    def run(self, X , Y):
-        hi = self._CheckSplit()
-        learning_rate = 0.01
-        self.n_samples = len(Y)
-        mu = np.mean(X, 0)
-        sigma = np.std(X, 0)
-        X = (X-mu) / sigma
-        X = np.hstack((np.ones((self.n_samples,1)),X))
-        n_features = np.size(X,1)
-        params = np.zeros((n_features,1))
-        self.initial_cost = self.__compute_cost(X, Y, params)
-        (self.cost_history, self.optimal_params) = self.__gradient_descent(X,Y, params, learning_rate)
+    def run(self, X , Y, splitted=True):
+        self.__split = splitted
+        self._CheckSplit()
+        self.__Implementation(X, Y)
     
     def getInitialCost(self):
         return self.initial_cost
