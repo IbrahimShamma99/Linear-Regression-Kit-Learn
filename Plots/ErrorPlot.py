@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 
-# NOTE For internal usage
-class ErrPlots():
+class Plots():
     def __init__(self):
         pass
     
@@ -14,3 +13,7 @@ class ErrPlots():
         plt.xlabel("Number of Iterations")
         plt.ylabel("Cost")
         plt.show()
+    
+    #TODO 
+    def PlotRocCurve(self):
+        pass
