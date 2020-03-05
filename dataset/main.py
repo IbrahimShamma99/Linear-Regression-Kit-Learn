@@ -19,17 +19,12 @@ def load_breast_cancer():
     X = []
     Y = []
     for i in range(1,len(data)):
-        Y.append(np.int(data[i][-1]))
+        Y.append(data[i][-1])
         X.append(data[i][:-1])
     X = np.array(X)
     Y = np.array(Y)
-    
-    for i in range(X.shape[0]):
-        for j in range(X.shape[1]):
-            X[i,j] = np.float64(X[i,j]).item()
+    X = X.astype(np.float)
+    Y = Y.astype(np.int)  
     return X,Y
 
 
-X , Y = load_breast_cancer()
-
-print(type(X[0,0]))
