@@ -1,5 +1,5 @@
 import numpy as np
-from Plots.ErrorPlot import Plots
+from Plots.main import Plots
 
 class LinearReg(Plots):
     
