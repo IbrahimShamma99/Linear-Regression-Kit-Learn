@@ -24,7 +24,6 @@ class LinearReg(Plots):
     def __Implementation(self, X , Y):
         self.n_samples = len(Y)
         learning_rate = 0.01
-        self.n_samples = len(Y)
         mu = np.mean(X, 0)
         sigma = np.std(X, 0)
         X = (X-mu) / sigma
@@ -41,13 +40,21 @@ class LinearReg(Plots):
         self.__Implementation(X, Y)
     
     def getInitialCost(self):
-        return self.initial_cost
-    
+        try:
+            return self.initial_cost
+        except TypeError:
+            return 0
     def getOptimalParams(self):
-        return self.optimal_params
-    
+        try:
+            return self.optimal_params
+        except TypeError:
+            return 0    
+            
     def getCostHistory(self):
-        return self.cost_history
+        try:
+            return self.cost_history
+        except TypeError:
+            return 0
     
     def splitProperty(self,prop):
         #FIXME 
