@@ -41,9 +41,9 @@ class LinearReg(Plots,Cleaner):
     def run(self, X , Y, train_ratio):
         self.X = X 
         self.Y = Y
-        print("\nHERE\n")
-        # X_train ,Y_train , X_test , Y_test  = self.Split(X , Y , train_ratio)
-        self.__Implementation(X, Y)
+        #FIXME 
+        X_train ,Y_train , X_test , Y_test  = self.Split(X , Y , train_ratio)
+        self.__Implementation(X_train, Y_train)
     
     def getInitialCost(self):
         try:
