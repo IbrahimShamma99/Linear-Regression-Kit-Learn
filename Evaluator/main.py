@@ -18,4 +18,4 @@ class Evaluator():
             mean_of_differences_squared = differences_squared.mean()  
             rmse_val = np.sqrt(mean_of_differences_squared)  
             Error += rmse_val      
-        self.RMSE_Error = Error
+        self.RMSE_Error = Error/n_samples
