@@ -4,7 +4,7 @@ from Cleaner.main import Cleaner
 from .Commons import Common
 
 '''FIXME 
-Let your parameters private to not affect your training
+Let your parameters private to not affect your model
 '''
 class LinearReg(Plots,Cleaner,Common):
     
@@ -16,7 +16,7 @@ class LinearReg(Plots,Cleaner,Common):
     
     def __compute_cost(self,X, y, params):
         n_samples = len(y)
-        h = X @ params
+        h = self.predict(X , params)
         return (1/(2*n_samples))*np.sum((h-y)**2)
 
     def __gradient_descent(self,X, y, params, learning_rate):
@@ -44,10 +44,9 @@ class LinearReg(Plots,Cleaner,Common):
     def run(self, X , Y, train_ratio):
         self.X = X 
         self.Y = Y
-        #FIXME 
         self.n_samples = len(Y)
         self.X_train ,self.Y_train , self.X_test , self.Y_test  = self.Split(X , Y , train_ratio)
         self.__Implementation(self.X_train, self.Y_train)
             
-    def predict(self, X_test): 
-        pass
+    def predict(self, X , params): 
+        return X @ params
