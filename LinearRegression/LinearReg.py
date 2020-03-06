@@ -26,13 +26,12 @@ class LinearReg(Plots,Cleaner):
     
     #NOTE Here we implement the algorithm
     def __Implementation(self, X , Y):
-        if (self.n_samples == 0):
-            self.n_samples = len(Y)
+        self.n_train_samples = len(Y)
         learning_rate = 0.01
         mu = np.mean(X, 0)
         sigma = np.std(X, 0)
         X = (X-mu) / sigma
-        X = np.hstack((np.ones((self.n_samples,1)),X))
+        X = np.hstack((np.ones((self.n_train_samples,1)),X))
         n_features = np.size(X,1)
         params = np.zeros((n_features,1))
         self.initial_cost = self.__compute_cost(X, Y, params)
@@ -42,6 +41,7 @@ class LinearReg(Plots,Cleaner):
         self.X = X 
         self.Y = Y
         #FIXME 
+        self.n_samples = len(Y)
         X_train ,Y_train , X_test , Y_test  = self.Split(X , Y , train_ratio)
         self.__Implementation(X_train, Y_train)
     
