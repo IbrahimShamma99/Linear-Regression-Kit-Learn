@@ -1,6 +1,6 @@
 import numpy as np
 from Plots.main import Plots
-from Cleaner.cleaner import Cleaner
+from Cleaner.main import Cleaner
 
 class LinearReg(Plots,Cleaner):
     
