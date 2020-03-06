@@ -26,10 +26,12 @@ class LinearReg(Plots,Cleaner,Common):
         for i in range(self.__iters):
             params = params - (learning_rate/n_samples) * X.T @ (X @ params - y) 
             cost_history[i] = self.__compute_cost(X, y, params)
+        self.params = params
         return (cost_history, params)
     
     #NOTE Here we implement the algorithm
-    def __Implementation(self, X , Y):
+    #TODO fit 
+    def fit(self, X , Y):
         self.n_train_samples = len(Y)
         learning_rate = 0.01
         mu = np.mean(X, 0)
@@ -46,7 +48,9 @@ class LinearReg(Plots,Cleaner,Common):
         self.Y = Y
         self.n_samples = len(Y)
         self.X_train ,self.Y_train , self.X_test , self.Y_test  = self.Split(X , Y , train_ratio)
-        self.__Implementation(self.X_train, self.Y_train)
-            
-    def predict(self, X , params): 
-        return X @ params
+        self.fit(self.X_train, self.Y_train)
+        
+          
+    def predict(self, X): 
+        return X @ self.params
+  
