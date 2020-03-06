@@ -1,10 +1,10 @@
 import numpy as np
 
 class Cleaner():
+    #Super is for changing super class behavior
     def __init(self):
         self.n_samples=0
 
-        
     def splitProperty(self,prop,ratio):
         #FIXME 
         if (self.n_samples != 0):
@@ -19,9 +19,9 @@ class Cleaner():
         return prop_training , prop_test
         
     def Split(self,X , Y , train_ratio=0.7):
+        test_ratio =1-train_ratio
         #NOTE Train 
         X_train , X_test = self.splitProperty(X,train_ratio)
-        #NOTE Test
-        test_ratio =1-train_ratio
+        #NOTE Tests
         Y_train , Y_test = self.splitProperty(Y,test_ratio)        
         return X_train , Y_train , X_test , Y_test

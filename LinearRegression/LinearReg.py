@@ -5,10 +5,10 @@ from Cleaner.cleaner import Cleaner
 class LinearReg(Plots,Cleaner):
     
     #NOTE Initial state
-    def __init__(self,iters=300):
-        self.__iters = iters
+    def __init__(self,n_iterations=300):
+        self.__iters = n_iterations
         self.n_samples = 0 
-        pass 
+        pass
     
     def __compute_cost(self,X, y, params):
         n_samples = len(y)
@@ -26,6 +26,8 @@ class LinearReg(Plots,Cleaner):
     
     #NOTE Here we implement the algorithm
     def __Implementation(self, X , Y):
+        if (self.n_samples == 0):
+            self.n_samples = len(Y)
         learning_rate = 0.01
         mu = np.mean(X, 0)
         sigma = np.std(X, 0)
@@ -39,22 +41,24 @@ class LinearReg(Plots,Cleaner):
     def run(self, X , Y, train_ratio):
         self.X = X 
         self.Y = Y
-        X_train ,Y_train , X_test , Y_test  = self.Split(X , Y , train_ratio)
-        self.__Implementation(X_train, Y_train)
+        print("\nHERE\n")
+        # X_train ,Y_train , X_test , Y_test  = self.Split(X , Y , train_ratio)
+        self.__Implementation(X, Y)
     
     def getInitialCost(self):
         try:
             return self.initial_cost
         except TypeError:
-            return 0
+            raise Exception('Model was not run yet')
+        
     def getOptimalParams(self):
         try:
             return self.optimal_params
         except TypeError:
-            return 0    
+            raise Exception('Model was not run yet')
             
     def getCostHistory(self):
         try:
             return self.cost_history
         except TypeError:
-            return 0
+            raise Exception('Model was not run yet')
