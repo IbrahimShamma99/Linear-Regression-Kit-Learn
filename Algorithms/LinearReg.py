@@ -1,8 +1,12 @@
 import numpy as np
 from Plots.main import Plots
 from Cleaner.main import Cleaner
+from .Commons import Common
 
-class LinearReg(Plots,Cleaner):
+'''FIXME 
+Let your parameters private to not affect your training
+'''
+class LinearReg(Plots,Cleaner,Common):
     
     #NOTE Initial state
     def __init__(self,n_iterations=300):
@@ -42,23 +46,8 @@ class LinearReg(Plots,Cleaner):
         self.Y = Y
         #FIXME 
         self.n_samples = len(Y)
-        X_train ,Y_train , X_test , Y_test  = self.Split(X , Y , train_ratio)
-        self.__Implementation(X_train, Y_train)
-    
-    def getInitialCost(self):
-        try:
-            return self.initial_cost
-        except TypeError:
-            raise Exception('Model was not run yet')
-        
-    def getOptimalParams(self):
-        try:
-            return self.optimal_params
-        except TypeError:
-            raise Exception('Model was not run yet')
+        self.X_train ,self.Y_train , self.X_test , self.Y_test  = self.Split(X , Y , train_ratio)
+        self.__Implementation(self.X_train, self.Y_train)
             
-    def getCostHistory(self):
-        try:
-            return self.cost_history
-        except TypeError:
-            raise Exception('Model was not run yet')
+    def predict(self, X_test): 
+        pass
